@@ -1,0 +1,19 @@
+{
+  "name": "term-debank-caller",
+  "version": "1.0.0",
+  "description": "makes api calls to debank using their open api ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VarunNaik2001/term-debank-caller.git"
+  },
+  "author": "Varun Naik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VarunNaik2001/term-debank-caller/issues"
+  },
+  "homepage": "https://github.com/VarunNaik2001/term-debank-caller#readme"
+}
