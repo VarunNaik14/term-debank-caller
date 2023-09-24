@@ -26,8 +26,4 @@ return returnData;
 
 }
 
-getPortfolioFromAddress('0x741aa7cfb2c7bf2a1e7d4da2e3df6a56ca4131f3').then((data) =>{
-    console.log(data)
-})
-
 export {getPortfolioFromAddress};
