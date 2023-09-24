@@ -1,14 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import firebase from "firebase/compat/app";
-import {getFirestore, collection, addDoc } from "firebase/firestore"; 
-// Required for side-effects
-//import "firebase/firestore";
+import {getFirestore, collection, addDoc, doc,setDoc} from "firebase/firestore"; 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyB0_fZliqBGGx3tz6GldceqNG6eVndoIhA",
   authDomain: "debank-data-storage.firebaseapp.com",
@@ -19,18 +16,29 @@ const firebaseConfig = {
   measurementId: "G-4BGXGJYZG3"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+var app;
+var db;
 
-const db = getFirestore(app);
+const initFirebase = function(){
+
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+
+    return db;
+
+}
+
+
 
 try {
-  const docRef = await addDoc(collection(db, "users"), {
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-  });
-  console.log("Document written with ID: ", docRef.id);
+  const addy = "0xd275e5cb559d6dc236a5f8002a5f0b4c8e610701";
+  
+  const docRef = await setDoc(doc(db,"Users",addy),{address: addy});
+  //const protocolCollection = await collection(db,"users",addy,"protocols");
+  const protocolDocRef = await setDoc(doc(db,"Users",...[addy,"protocols","Uniswap"]),{detailType:'Lending'});
+  console.log("Success!");
 } catch (e) {
   console.error("Error adding document: ", e);
 }
+
+export {initFirebase}

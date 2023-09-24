@@ -6,5 +6,12 @@ const getAddressesFromFile = function(filename,splitString){
 
 }
 
+const addDataToFile = function(fileNameToAdd,dataToAdd){
 
+    fs.appendFileSync(fileNameToAdd, dataToAdd, function (err) {
+        if (err) console.log(err);
+    });
 
+}
+
+export {getAddressesFromFile,addDataToFile}
