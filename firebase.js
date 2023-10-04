@@ -3,8 +3,8 @@ import { initializeApp } from "firebase/app";
 import firebase from "firebase/compat/app";
 import {getFirestore, collection, addDoc, doc,setDoc} from "firebase/firestore"; 
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+
+var app, db;
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0_fZliqBGGx3tz6GldceqNG6eVndoIhA",
@@ -16,29 +16,13 @@ const firebaseConfig = {
   measurementId: "G-4BGXGJYZG3"
 };
 
-var app;
-var db;
+const initFirebase = async function(){
 
-const initFirebase = function(){
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
 
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-
-    return db;
-
-}
-
-
-
-try {
-  const addy = "0xd275e5cb559d6dc236a5f8002a5f0b4c8e610701";
+  return db;
   
-  const docRef = await setDoc(doc(db,"Users",addy),{address: addy});
-  //const protocolCollection = await collection(db,"users",addy,"protocols");
-  const protocolDocRef = await setDoc(doc(db,"Users",...[addy,"protocols","Uniswap"]),{detailType:'Lending'});
-  console.log("Success!");
-} catch (e) {
-  console.error("Error adding document: ", e);
 }
 
 export {initFirebase}
