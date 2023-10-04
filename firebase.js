@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import firebase from "firebase/compat/app";
-import {getFirestore, collection, addDoc, doc,setDoc} from "firebase/firestore"; 
+import {getFirestore} from "firebase/firestore"; 
 
 
 var app, db;
@@ -22,7 +21,7 @@ const initFirebase = async function(){
   db = getFirestore(app);
 
   return db;
-  
+
 }
 
 export {initFirebase}
