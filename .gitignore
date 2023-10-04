@@ -1,2 +1,4 @@
 node_modules
-test_data
+test_data/testAddresses.txt
+test_data/testObjectArray.js
+.gitignore
