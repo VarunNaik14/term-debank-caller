@@ -1,9 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getFirestore} from "firebase/firestore"; 
+import {getFirestore, collection,getDocs,query,where,limit} from "firebase/firestore"; 
 
 
-var app, db;
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0_fZliqBGGx3tz6GldceqNG6eVndoIhA",
@@ -15,13 +14,24 @@ const firebaseConfig = {
   measurementId: "G-4BGXGJYZG3"
 };
 
-const initFirebase = async function(){
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
+export {app,db} 
 
-  return db;
+export async function getUserWithAddress(address){
 
+  const userRef = collection(db,'users');
+  const q =  query(userRef, where('address','==',address),limit(1));
+  const userDocs = await getDocs(q);
+
+  return  userDocs.docs[0].data();
 }
 
-export {initFirebase}
+export async function getSearchParams(list){
+  const searchRef = collection(db,'search');
+  const q = query(searchRef,where('filled','==',true),limit(1));
+  const searchDocs = await getDocs(q);
+
+  return searchDocs.docs[0].data()[list];
+}
