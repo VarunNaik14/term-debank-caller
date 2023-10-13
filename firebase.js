@@ -1,8 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection,getDocs,query,where,limit} from "firebase/firestore"; 
-
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0_fZliqBGGx3tz6GldceqNG6eVndoIhA",
@@ -16,7 +13,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 export {app,db} 
 
 export async function getUserWithAddress(address){
@@ -28,10 +24,42 @@ export async function getUserWithAddress(address){
   return  userDocs.docs[0].data();
 }
 
-export async function getSearchParams(list){
+export async function getSearchParams(){
+
   const searchRef = collection(db,'search');
   const q = query(searchRef,where('filled','==',true),limit(1));
   const searchDocs = await getDocs(q);
 
-  return searchDocs.docs[0].data()[list];
+  return searchDocs.docs[0].data();
+}
+
+export async function filterUsersBySearchParams(searchParams){
+
+  const map = ['protocols_used','total_supplied_tokens','total_borrowed_tokens'];
+  const userRef = collection(db,'users');
+  let q = query(userRef);
+  let filteredusers = [];
+
+  let index = 0;
+  for(var parameter of searchParams){
+    if(index === 0 && parameter != null){
+      q = query(q,where(map[0],'array-contains',searchParams[index]));
+    }
+
+    else{
+      if(parameter != null){
+         q = query(q,where(`${map[index]}.${parameter}.symbol`,'in',[parameter]));
+      }
+    }
+
+    index++;
+  }
+
+  const userDocs = (await getDocs(q)).docs;
+  for(var user of userDocs){
+    filteredusers.push(user.data());
+  }
+
+  return filteredusers;
+
 }
