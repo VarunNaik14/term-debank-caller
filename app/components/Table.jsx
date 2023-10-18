@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { memo } from 'react';
 import {Paper,Table,TableBody,TableCell,TableContainer,TableHead,TablePagination,TableRow, colors} from '@mui/material';
 import { formatter } from '../../helpers/formatter';
 
@@ -6,19 +7,14 @@ import { formatter } from '../../helpers/formatter';
 
 
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-
-
-export default function ResultTable({tableData}) {
+const ResultTable = memo( function ResultTable({tableData}) {
    
     const userData = tableData[0];
-
+    
     const searchValues = tableData[1];
     if(tableData[0] != null){
+
+        //fixed columns
         let columns = [
             { id: 'address', label: 'Address', minWidth: 170 },
             {
@@ -37,7 +33,7 @@ export default function ResultTable({tableData}) {
             },
           ];
 
-
+        //adds dynamic columns to column array
         let index = 0;
         for(var parameter of searchValues){
             if(index == 0 && parameter != null){
@@ -51,9 +47,10 @@ export default function ResultTable({tableData}) {
             }
         index++;
         }
+
         let rows = [];
         for(const user of userData){
-            const map = ['protocols_used','total_supplied_tokens','total_borrowed_tokens'];
+
             let rowData = {};
             for(const col of columns){
                 switch(col.label) {
@@ -76,10 +73,10 @@ export default function ResultTable({tableData}) {
                         break;
 
                 }
-            rows.push(rowData);
-
             }
+            rows.push(rowData);
         }
+
 
         const [page, setPage] = React.useState(0);
         const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -148,6 +145,6 @@ export default function ResultTable({tableData}) {
             </Paper>
         );
     }
-}
+})
 
 export {ResultTable} ;
