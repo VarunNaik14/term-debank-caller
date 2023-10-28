@@ -1,5 +1,5 @@
 'use client'
-import { ResultTable } from './components/Table'
+import { PortfolioResultTable } from './components/PortfolioResultTable'
 import { filterUsersBySearchParams, getSearchParams } from "../firebase";
 import Head from 'next/head';
 import {useState,useEffect,useMemo} from 'react';
@@ -24,9 +24,7 @@ export default function Page() {
     });
   }, []);
 
-  const memoizedTable = useMemo(()=>{
-    return <ResultTable {...{tableData}}/>
-  })
+
 
     return (
       <div>
@@ -117,7 +115,7 @@ export default function Page() {
             </Button>
           </div>
         </div>
-       {memoizedTable}
+        <PortfolioResultTable {...{tableData}}/>
       </div>
     )
   }

@@ -7,11 +7,11 @@ import { formatter } from '../../helpers/formatter';
 
 
 
-const ResultTable = memo( function ResultTable({tableData}) {
+const PortfolioResultTable =  function({tableData}) {
    
     const userData = tableData[0];
     
-    const searchValues = tableData[1];
+    const additionalColumns= tableData[1];
     if(tableData[0] != null){
 
         //fixed columns
@@ -35,7 +35,7 @@ const ResultTable = memo( function ResultTable({tableData}) {
 
         //adds dynamic columns to column array
         let index = 0;
-        for(var parameter of searchValues){
+        for(var parameter of additionalColumns){
             if(index == 0 && parameter != null){
                 columns.push({id: parameter,label:'Protocol',minWidth:170,align:'right'})
             }
@@ -145,6 +145,6 @@ const ResultTable = memo( function ResultTable({tableData}) {
             </Paper>
         );
     }
-})
+}
 
-export {ResultTable} ;
+export {PortfolioResultTable} ;
