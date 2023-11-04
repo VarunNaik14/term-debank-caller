@@ -48,7 +48,7 @@ const getPortfolioFromArkham = async function(){
     method: "get",
     url: "https://api.arkhamintelligence.com/portfolio/address/0x5cd7f9ee3be46c94ce51729e803a96566aa6668a",
     params: {
-      time: Data.now()
+      time: Date.now()
     },
   }
   const returnData = (await axios(config)).data;
