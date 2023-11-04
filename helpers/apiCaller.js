@@ -23,22 +23,36 @@ return returnData;
 
 }
 
-const queryArkham = async function(base_,flow_,limit_,usdGte_,timeLast_){
+const queryArkham = async function(base_,flow_,usdGte_,timeLast_,tokens_){
   const config = {
+    headers: {"API-key": "R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE"},
     method: "get",
     url: "https://api.arkhamintelligence.com/transfers",
     params: {
       base: base_,
       flow: flow_,
-      limit: limit_,
+      limit: "10000",
       usdGte: usdGte_,
       timeLast: timeLast_,
+      tokens: tokens_
     },
   }
   const returnData = (await axios(config)).data.transfers;
-
   return returnData;
 
 }
 
-export {getPortfolioFromAddress,queryArkham};
+const getPortfolioFromArkham = async function(){
+  const config = {
+    headers: {"API-key": "R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE"},
+    method: "get",
+    url: "https://api.arkhamintelligence.com/portfolio/address/0x5cd7f9ee3be46c94ce51729e803a96566aa6668a",
+    params: {
+      time: Data.now()
+    },
+  }
+  const returnData = (await axios(config)).data;
+  return returnData;
+}
+
+export {getPortfolioFromAddress,queryArkham,getPortfolioFromArkham};
