@@ -42,11 +42,11 @@ const queryArkham = async function(base_,flow_,usdGte_,timeLast_,tokens_){
 
 }
 
-const getPortfolioFromArkham = async function(){
+const getPortfolioFromArkham = async function(address){
   const config = {
     headers: {"API-key": "R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE"},
     method: "get",
-    url: "https://api.arkhamintelligence.com/portfolio/address/0x5cd7f9ee3be46c94ce51729e803a96566aa6668a",
+    url: `https://api.arkhamintelligence.com/portfolio/address/${address}`,
     params: {
       time: Date.now()
     },
