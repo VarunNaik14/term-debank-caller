@@ -5,6 +5,7 @@ import {Button,TextField, Autocomplete} from '@mui/material';
 import { queryArkham,getPortfolioFromAddress, getPortfolioFromArkham } from '../../helpers/apiCaller';
 import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_token_list';
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
+
 /*  method: "get",
   url: "https://api.arkhamintelligence.com/transfers",
   params: {
@@ -156,7 +157,7 @@ export default function Page(){
                 </Button>      
             </div>  
 
-            {Object.keys(arkhamData).length > 0 && <ArkhamResultTable {...{arkhamData}}/>}                
+            {Object.keys(arkhamData).length > 0 && <ArkhamResultTable {...{arkhamData}} />}                
         </div>
 
         

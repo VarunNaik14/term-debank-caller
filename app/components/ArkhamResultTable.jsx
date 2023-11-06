@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid,GridToolbar } from '@mui/x-data-grid';
 import { formatter } from '../../helpers/formatter';
 
 
@@ -12,7 +12,7 @@ const ArkhamResultTable = function({arkhamData}){
 
     const columns = [
       { field: 'address', headerName: 'Address', width: 350 },
-      { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 130 },
+      { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 200 },
       { field: 'tokens', headerName: 'Tokens', width: 800 },
     ];
 
@@ -21,24 +21,26 @@ const ArkhamResultTable = function({arkhamData}){
       rows.push({
         id:key,
         address: arkhamData[key].address,
-        transactionValue:formatter.format(arkhamData[key].txValue),
+        transactionValue:arkhamData[key].txValue,
         tokens:arkhamData[key].transactedTokens.toString()})
     }
 
 
     
     return (
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 1200, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 100 },
             },
           }}
-          pageSizeOptions={[5, 10]}
+          pageSizeOptions={[5, 10,50,100]}
           checkboxSelection
+          slots={{ toolbar: GridToolbar }}
+
         />
       </div>
     )
