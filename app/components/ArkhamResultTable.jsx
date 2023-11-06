@@ -11,7 +11,7 @@ import { formatter } from '../../helpers/formatter';
 const ArkhamResultTable = function({arkhamData}){
 
     const columns = [
-      { field: 'address', headerName: 'Address', width: 350 },
+      { field: 'address', headerName: 'Address', width: 380,filterable: false },
       { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 200 },
       { field: 'tokens', headerName: 'Tokens', width: 750 },
       {field: 'protocols', headerName: 'Protocols',width: 750}
@@ -41,7 +41,7 @@ const ArkhamResultTable = function({arkhamData}){
             },
           }}
           pageSizeOptions={[5, 10,50,100]}
-          checkboxSelection
+          //checkboxSelection 
           slots={{ toolbar: GridToolbar }}
 
         />
