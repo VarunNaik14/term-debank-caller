@@ -14,7 +14,7 @@ const ArkhamResultTable = function({arkhamData}){
       { field: 'address', headerName: 'Address', width: 380,filterable: false },
       { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 200 },
       { field: 'tokens', headerName: 'Tokens', width: 750 },
-      {field: 'protocols', headerName: 'Protocols',width: 750}
+      {field: 'protocols', headerName: 'Protocols',width: 250}
     ];
 
     let rows = [];
@@ -33,6 +33,7 @@ const ArkhamResultTable = function({arkhamData}){
     return (
       <div style={{ height: 600, width: '100%' }}>
         <DataGrid
+          onRowDoubleClick={(params) =>{window.open(`https://debank.com/profile/${params.row.address}`)}}
           rows={rows}
           columns={columns}
           initialState={{
