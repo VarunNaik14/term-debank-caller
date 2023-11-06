@@ -26,7 +26,7 @@ export default function Page(){
     const [recency,setRecency] = useState(90);
     const [tokens,setTokens] = useState([]);
 
-    const [arkhamData,setArkhamData] = useState(null);
+    const [arkhamData,setArkhamData] = useState({});
     
     return(
         <div> 
@@ -138,23 +138,25 @@ export default function Page(){
                                     filteredArkhamData.hasOwnProperty(address)?
                                         filteredArkhamData[address] = {...filteredArkhamData[address],
                                                                         txValue:filteredArkhamData[address].txValue + transaction.historicalUSD,
-                                                                        transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName] }:
+                                                                        transactedTokens : filteredArkhamData[address].transactedTokens.includes(transaction.tokenName)?
+                                                                        filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName] }:
                                         filteredArkhamData[address] = { address: address,
                                                                         txValue:transaction.historicalUSD,
                                                                         transactedTokens: [transaction.tokenName] };
                                     
                                 }
                             }
+                            setArkhamData(filteredArkhamData);
                         }
                     )
 
-                    setArkhamData(filteredArkhamData);
+ 
                 }}>
                 Submit
                 </Button>      
             </div>  
-            {arkhamData? <ArkhamResultTable {...{arkhamData}}/>: <></>  } 
-                
+
+            {Object.keys(arkhamData).length > 0 && <ArkhamResultTable {...{arkhamData}}/>}                
         </div>
 
         
