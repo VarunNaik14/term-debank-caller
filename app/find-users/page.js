@@ -133,17 +133,31 @@ export default function Page(){
                             for(const transaction of transactionData){
 
                                 if(!(transaction.fromIsContract && transaction.toIsContract)){
+                                    let address, protocolName;
+                                    if(transaction.fromIsContract){
+                                        address = transaction.toAddress.address;
+                                        protocolName = transaction.fromAddress.arkhamEntity.name;
+                                    }
 
-                                    const address = transaction.fromIsContract?transaction.toAddress.address:transaction.fromAddress.address;
+                                    else{
+                                        
+                                        address = transaction.fromAddress.address;
+                                        protocolName = transaction.toAddress.arkhamEntity.name;
+
+                                    }
 
                                     filteredArkhamData.hasOwnProperty(address)?
                                         filteredArkhamData[address] = {...filteredArkhamData[address],
                                                                         txValue:filteredArkhamData[address].txValue + transaction.historicalUSD,
                                                                         transactedTokens : filteredArkhamData[address].transactedTokens.includes(transaction.tokenName)?
-                                                                        filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName] }:
+                                                                        filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName],
+                                                                        protocolsUsed : filteredArkhamData[address].protocolsUsed.includes(protocolName)?
+                                                                        filteredArkhamData[address].protocolsUsed : [...filteredArkhamData[address].protocolsUsed,protocolName] }:
+                                                                        
                                         filteredArkhamData[address] = { address: address,
                                                                         txValue:transaction.historicalUSD,
-                                                                        transactedTokens: [transaction.tokenName] };
+                                                                        transactedTokens: [transaction.tokenName],
+                                                                        protocolsUsed: [protocolName] };
                                     
                                 }
                             }

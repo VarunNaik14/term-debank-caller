@@ -13,7 +13,8 @@ const ArkhamResultTable = function({arkhamData}){
     const columns = [
       { field: 'address', headerName: 'Address', width: 350 },
       { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 200 },
-      { field: 'tokens', headerName: 'Tokens', width: 800 },
+      { field: 'tokens', headerName: 'Tokens', width: 750 },
+      {field: 'protocols', headerName: 'Protocols',width: 750}
     ];
 
     let rows = [];
@@ -21,14 +22,16 @@ const ArkhamResultTable = function({arkhamData}){
       rows.push({
         id:key,
         address: arkhamData[key].address,
-        transactionValue:arkhamData[key].txValue,
-        tokens:arkhamData[key].transactedTokens.toString()})
+        transactionValue:arkhamData[key].txValue.toFixed(2),
+        tokens:arkhamData[key].transactedTokens.toString(),
+        protocols:arkhamData[key].protocolsUsed.toString()
+      })
     }
 
 
     
     return (
-      <div style={{ height: 1200, width: '100%' }}>
+      <div style={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={columns}
