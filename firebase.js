@@ -42,13 +42,15 @@ export async function filterUsersBySearchParams(searchParams){
 
   let index = 0;
   for(var parameter of searchParams){
-    if(index === 0 && parameter != null){
+    if(index === 0 && parameter.length != 0){
+
       q = query(q,where(map[0],'array-contains',searchParams[index]));
     }
 
     else{
-      if(parameter != null){
-         q = query(q,where(`${map[index]}.${parameter}.symbol`,'in',[parameter]));
+      
+      if(parameter.length!= 0){
+         q = query(q,where(`${map[index]}.${parameter}.symbol`,'in',parameter));
       }
     }
 
