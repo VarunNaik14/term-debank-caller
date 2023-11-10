@@ -12,8 +12,8 @@ const PortfolioResultTable =  function({tableData}) {
     const userData = tableData[0];
     
     const additionalColumns= tableData[1];
+ 
     if(tableData[0] != null){
-
         //fixed columns
         let columns = [
             { id: 'address', label: 'Address', minWidth: 170 },
@@ -35,14 +35,14 @@ const PortfolioResultTable =  function({tableData}) {
 
         //adds dynamic columns to column array
         let index = 0;
-        for(var parameter of additionalColumns){
-            if(index == 0 && parameter != null){
-                columns.push({id: parameter,label:'Protocol',minWidth:170,align:'right'})
+        for(var parameters of additionalColumns){
+            if(index == 0 && parameters.length != 0){
+                columns.push({id: parameters.toString(),label:'Protocol(s)',minWidth:170,align:'right'})
             }
-            else if(index == 1 && parameter != null){
+            else if(index == 1 && parameters.length != 0){
                 columns.push({id: parameter,label:'Supply Token',minWidth:170,align:'right'})
             }
-            else if(index == 2 && parameter != null){
+            else if(index == 2 && parameters.length != 0){
                 columns.push({id: parameter,label:'Borrow Token',minWidth:170,align:'right'})
             }
         index++;
@@ -62,7 +62,7 @@ const PortfolioResultTable =  function({tableData}) {
                         rowData[col.id] = user[col.id];
                         break;
                     
-                    case 'Protocol':
+                    case 'Protocol(s)':
                         rowData[col.id] = col.id;
                         break;
                     case 'Supply Token':

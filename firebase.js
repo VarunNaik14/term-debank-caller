@@ -31,6 +31,7 @@ export async function getSearchParams(){
   const searchDocs = await getDocs(q);
 
   return searchDocs.docs[0].data();
+
 }
 
 export async function filterUsersBySearchParams(searchParams){
@@ -41,15 +42,13 @@ export async function filterUsersBySearchParams(searchParams){
   let filteredusers = [];
 
   let index = 0;
-  for(var parameter of searchParams){
-    if(index === 0 && parameter.length != 0){
-
-      q = query(q,where(map[0],'array-contains',searchParams[index]));
+  for(var parameters of searchParams){
+    if(index === 0 && parameters.length != 0){
+      q = query(q,where(map[0],'array-contains-any', parameters));
     }
 
     else{
-      
-      if(parameter.length!= 0){
+      if(parameters.length!= 0){
          q = query(q,where(`${map[index]}.${parameter}.symbol`,'in',parameter));
       }
     }

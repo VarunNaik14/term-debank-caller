@@ -12,8 +12,8 @@ import {TextField, Autocomplete, Button, Stack} from '@mui/material';
 export default function Page() {
 
   //protocol,supply,borrow values respectivley
-  const [autoFillValues,setAutoFillValues] = useState([['loading'],['loading'],['loading']]);
-  const[searchValues,setSearchValues] = useState([null,null,null]);
+  const [autoFillValues,setAutoFillValues] = useState([['loading...'],['loading...'],['loading...']]);
+  const[searchValues,setSearchValues] = useState([[],[],[]]);
 
 
   const [tableData,setTableData] = useState([null,null]);
@@ -33,7 +33,9 @@ export default function Page() {
         </Head>
         <div class = "flex flex-row pt-10">
           <div class = "mx-0.5">
+            
             <Autocomplete
+              multiple
               value={searchValues[0]}
               onChange={(event, newValue) => {
                 const newSearchValues = searchValues.map((value,index) => {
@@ -57,6 +59,7 @@ export default function Page() {
 
           <div class ="mx-0.5">
             <Autocomplete
+              multiple
               value={searchValues[1]}
               onChange={(event, newValue) => {
                 const newSearchValues = searchValues.map((value,index) => {
@@ -80,6 +83,7 @@ export default function Page() {
           
           <div class ="mx-0.5">
             <Autocomplete
+              multiple
               value={searchValues[2]}
               onChange={(event, newValue) => {
                 const newSearchValues = searchValues.map((value,index) => {
@@ -106,8 +110,7 @@ export default function Page() {
               onClick={() => {
               
                 filterUsersBySearchParams(searchValues).then((filteredusers) =>{
-                  const copyOfSearchValues = [...searchValues];
-                  setTableData([filteredusers,copyOfSearchValues]);
+                  setTableData([filteredusers,searchValues]);
                 })
                 
               }}>
