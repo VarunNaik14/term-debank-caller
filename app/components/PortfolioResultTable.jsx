@@ -23,19 +23,17 @@ const PortfolioResultTable = function({tableData}){
 
         //fixed columns
         let columns = [
-            { id: 'address', label: 'Address', minWidth: 170 },
+            { field: 'address', headerName: 'Address', minWidth: 170 },
             {
-              id: 'total_supplied_value',
-              label: 'Size Lender (All Protocols)',
+              field: 'total_supplied_value',
+              headerName: 'Size Lender (All Protocols)',
               minWidth: 170,
-              align: 'right',
               format: (value) => formatter.format(value),
             },
             {
-              id: 'total_borrowed_value',
-              label: 'Size Borrower (All Protocols)',
+              field: 'total_borrowed_value',
+              headerName: 'Size Borrower (All Protocols)',
               minWidth: 170,
-              align: 'right',
               format: (value) => formatter.format(value),
             },
           ];
@@ -44,13 +42,13 @@ const PortfolioResultTable = function({tableData}){
         let index = 0;
         for(var parameters of additionalColumns){
             if(index == 0 && parameters.length != 0){
-                columns.push({id: parameters.toString(),label:'Protocol(s)',minWidth:170,align:'right'})
+                columns.push({field: parameters.toString(),headerName:'Protocol(s)',minWidth:170})
             }
             else if(index == 1 && parameters.length != 0){
-                columns.push({id: parameter,label:'Supply Token',minWidth:170,align:'right'})
+                columns.push({field: parameter,headerName:'Supply Token',minWidth:170})
             }
             else if(index == 2 && parameters.length != 0){
-                columns.push({id: parameter,label:'Borrow Token',minWidth:170,align:'right'})
+                columns.push({field: parameter,headerName:'Borrow Token',minWidth:170})
             }
         index++;
         }
@@ -60,23 +58,23 @@ const PortfolioResultTable = function({tableData}){
 
             let rowData = {id: user.address};
             for(const col of columns){
-                switch(col.label) {
+                switch(col.headerName) {
                     case 'Size Lender (All Protocols)':
                     case 'Size Borrower (All Protocols)':
-                        rowData[col.id] = formatter.format(user[col.id]);
+                        rowData[col.field] = formatter.format(user[col.field]);
                         break;
                     case 'Address':
-                        rowData[col.id] = user[col.id];
+                        rowData[col.field] = user[col.field];
                         break;
                     
                     case 'Protocol(s)':
-                        rowData[col.id] = col.id;
+                        rowData[col.field] = col.field;
                         break;
                     case 'Supply Token':
-                        rowData[col.id] = `${formatter.format(user.total_supplied_tokens[col.id].value)} of ${col.id}`
+                        rowData[col.field] = `${formatter.format(user.total_supplied_tokens[col.field].value)} of ${col.id}`
                         break;
                     case 'Borrow Token':
-                        rowData[col.id] = `${formatter.format(user.total_borrowed_tokens[col.id].value)} of ${col.id}`
+                        rowData[col.field] = `${formatter.format(user.total_borrowed_tokens[col.field].value)} of ${col.id}`
                         break;
 
                 }
