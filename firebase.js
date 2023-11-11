@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {getFirestore, collection,getDocs,query,where,limit} from "firebase/firestore"; 
+import {getFirestore, collection,getDocs,query,where,limit,or} from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0_fZliqBGGx3tz6GldceqNG6eVndoIhA",
@@ -43,13 +43,36 @@ export async function filterUsersBySearchParams(searchParams){
 
   let index = 0;
   for(var parameters of searchParams){
+
     if(index === 0 && parameters.length != 0){
       q = query(q,where(map[0],'array-contains-any', parameters));
     }
 
-    else{
-      if(parameters.length!= 0){
-         q = query(q,where(`${map[index]}.${parameter}.symbol`,'in',parameter));
+    else if(parameters.length != 0){
+      if(searchParams[0].length != 0){
+
+        for(var token of parameters){
+          
+          let orQueryContraints = [];
+
+          for(var protocol of searchParams[0]){
+
+            orQueryContraints.push(where(`${map[index]}.${token}.${protocol}`,'==',true))
+
+          }
+
+          q = query(q,or(...orQueryContraints));
+
+        }
+          
+      }
+
+      else{
+        for(var token of parameters){
+
+          q = query(q,where(`${map[index]}.${token}.symbol`,'in',[token]));
+
+        }
       }
     }
 

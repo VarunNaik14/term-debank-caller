@@ -39,10 +39,10 @@ const PortfolioResultTable = function({tableData}){
                 columns.push({field: parameters.toString(),headerName:'Protocol(s)',minWidth:170})
             }
             else if(index == 1 && parameters.length != 0){
-                columns.push({field: parameter,headerName:'Supply Token',minWidth:170})
+                columns.push({field: parameters.toString(),headerName:'Supply Token',minWidth:170})
             }
             else if(index == 2 && parameters.length != 0){
-                columns.push({field: parameter,headerName:'Borrow Token',minWidth:170})
+                columns.push({field: parameters.toString(),headerName:'Borrow Token',minWidth:170})
             }
         index++;
         }
@@ -65,10 +65,10 @@ const PortfolioResultTable = function({tableData}){
                         rowData[col.field] = col.field;
                         break;
                     case 'Supply Token':
-                        rowData[col.field] = `${formatter.format(user.total_supplied_tokens[col.field].value)} of ${col.id}`
+                        rowData[col.field] = `${formatter.format(user.total_supplied_tokens[col.field].value)} of ${col.field}`
                         break;
                     case 'Borrow Token':
-                        rowData[col.field] = `${formatter.format(user.total_borrowed_tokens[col.field].value)} of ${col.id}`
+                        rowData[col.field] = `${formatter.format(user.total_borrowed_tokens[col.field].value)} of ${col.field}`
                         break;
 
                 }

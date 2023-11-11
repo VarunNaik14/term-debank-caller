@@ -7,7 +7,7 @@ const propagateFirestore = async function(){
 
     const usersArray = getAddressesFromFile('./test_data/testAddresses.txt','\n');
 
-    const addTokenToList = function(listToAdd,tokenObj){
+    const addTokenToList = function(listToAdd,tokenObj,protocolName){
 
         if(listToAdd.hasOwnProperty(tokenObj.symbol)){
 
@@ -19,6 +19,8 @@ const propagateFirestore = async function(){
         else{
             listToAdd[tokenObj.symbol] = tokenObj;
         }
+
+        listToAdd[tokenObj.symbol][protocolName] = true;
     }
 
     const addItemIfNotIncluded = function(array, item){
@@ -100,11 +102,11 @@ const propagateFirestore = async function(){
                                 amount: token.amount,
                                 value: token.price * token.amount,
                                 logo_url: token.logo_url,
-        
+
                             }  
     
-                            addTokenToList(protocolRewardTokens,tokenObj);
-                            addTokenToList(totalRewardTokens,tokenObj);
+                            addTokenToList(protocolRewardTokens,tokenObj,protocolName);
+                            addTokenToList(totalRewardTokens,tokenObj,protocolName);
                             addItemIfNotIncluded(allRewardTokens,tokenObj.symbol);
     
      
@@ -130,14 +132,14 @@ const propagateFirestore = async function(){
 
                             }
                             
-                            addTokenToList(totalSuppliedTokens,tokenObj)
-                            addTokenToList(protocolSupplyTokens,tokenObj);
+                            addTokenToList(totalSuppliedTokens,tokenObj,protocolName)
+                            addTokenToList(protocolSupplyTokens,tokenObj,protocolName);
                             addItemIfNotIncluded(allSuppliedTokens,tokenObj.symbol);
         
                             if(token.hasOwnProperty('is_collateral') && token.is_collateral === true){
                                 
-                                addTokenToList(totalCollateralTokens,tokenObj);
-                                addTokenToList(protocolCollateralTokens,tokenObj);
+                                addTokenToList(totalCollateralTokens,tokenObj,protocolName);
+                                addTokenToList(protocolCollateralTokens,tokenObj,protocolName);
                                 
                                 totalCollateralValue += tokenObj.value;
                             }
@@ -161,8 +163,8 @@ const propagateFirestore = async function(){
         
                             }
         
-                            addTokenToList(totalBorrowedTokens,tokenObj);
-                            addTokenToList(protocolBorrowTokens,tokenObj)
+                            addTokenToList(totalBorrowedTokens,tokenObj,protocolName);
+                            addTokenToList(protocolBorrowTokens,tokenObj,protocolName)
                             addItemIfNotIncluded(allBorrowedTokens,tokenObj.symbol);
         
                             totalBorrowedValue += tokenObj.value;                           
