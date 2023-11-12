@@ -1,21 +1,25 @@
 'use client'
-import { PortfolioResultTable } from './components/PortfolioResultTable'
+import { PortfolioResultTable } from './components/PortfolioResultTable';
+import { InputFileUpload } from './components/InputFileUpload';
 import { filterUsersBySearchParams, getSearchParams } from "../firebase";
 import Head from 'next/head';
 import {useState,useEffect,useMemo} from 'react';
 import * as React from 'react';
-import {TextField, Autocomplete, Button, Stack} from '@mui/material';
+import {TextField, Autocomplete, Button} from '@mui/material';
+
+
 
 
 
 
 export default function Page() {
 
+  
   //protocol,supply,borrow values respectivley
   const [autoFillValues,setAutoFillValues] = useState([['loading...'],['loading...'],['loading...']]);
   const[searchValues,setSearchValues] = useState([[],[],[]]);
 
-
+  
   const [tableData,setTableData] = useState([null,null]);
 
   useEffect(() => {
@@ -117,6 +121,9 @@ export default function Page() {
               Submit
             </Button>
           </div>
+        </div>
+        <div>
+          <InputFileUpload />
         </div>
         <PortfolioResultTable {...{tableData}}/>
       </div>
