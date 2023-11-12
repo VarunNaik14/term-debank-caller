@@ -69,7 +69,7 @@ export default function Page(){
 
                 <TextField
                     id="set-transaction-value"
-                    label="Transaction Value"
+                    label="Transaction Value (in USD)"
                     type="number"
                     value = {transactionvalue}
                     onChange = {(event)=>{
@@ -112,7 +112,7 @@ export default function Page(){
                     <TextField
                         {...params}
                         variant="standard"
-                        label="Tokens"
+                        label="Tokens (optional)"
                         placeholder="Tokens"
                     />
                     )}
@@ -153,7 +153,7 @@ export default function Page(){
                                                                         filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName],
                                                                         protocolsUsed : filteredArkhamData[address].protocolsUsed.includes(protocolName)?
                                                                         filteredArkhamData[address].protocolsUsed : [...filteredArkhamData[address].protocolsUsed,protocolName] }:
-                                                                        
+
                                         filteredArkhamData[address] = { address: address,
                                                                         txValue:transaction.historicalUSD,
                                                                         transactedTokens: [transaction.tokenName],
