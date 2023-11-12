@@ -1,16 +1,39 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { Container } from "@mui/material";
 
 const InputFileUpload = function() {
-    return (
-        
+
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onloadend = () => {
+      console.log( reader.result.split(','));
+    };
+
+  };
+
+  return (
+    <Container maxWidth="md" sx={{ mt: 8 }}>
       <Stack direction="row" alignItems="center" spacing={2}>
-        <Button variant="contained" component="label">
+        <label htmlFor="upload-file">
+          <Button variant="contained" component="span">
             Upload
-            <input hidden accept="image/*" multiple type="file" />
-        </Button>
-    </Stack>
+          </Button>
+          <input
+            id="upload-file"
+            hidden
+            accept=".csv,.txt"
+            type="file"
+            onChange={handleFileUpload}
+          />
+        </label>
+      </Stack>
+    </Container>
+
     );
 }
 

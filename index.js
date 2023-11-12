@@ -1,11 +1,10 @@
 import {getPortfolioFromAddress} from './helpers/apiCaller.js';
-import {getAddressesFromFile} from './helpers/fileCreator.js';
 import {db} from './firebase.js';
 import {doc,setDoc} from "firebase/firestore"; 
 
-const propagateFirestore = async function(){
+const propagateFirestore = async function(addressArray){
 
-    const usersArray = getAddressesFromFile('./test_data/testAddresses.txt','\n');
+    const usersArray = addressArray;
 
     const addTokenToList = function(listToAdd,tokenObj,protocolName){
 
