@@ -5,6 +5,7 @@ import {Button,TextField, Autocomplete} from '@mui/material';
 import { queryArkham } from '../../helpers/apiCaller';
 import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_token_list';
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
+import { Navbar } from '../components/NavBar';
 
 export default function Page(){
 
@@ -22,6 +23,7 @@ export default function Page(){
     
     return(
         <div> 
+            <Navbar/>
             <div>
                 <Autocomplete
                     value = {protocols}
