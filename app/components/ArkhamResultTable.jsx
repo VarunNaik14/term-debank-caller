@@ -12,7 +12,7 @@ const ArkhamResultTable = function({arkhamData}){
 
     const columns = [
       { field: 'address', headerName: 'Address', width: 380,filterable: false },
-      { field: 'transactionValue', headerName: 'Transaction(s) Value', width: 200 },
+      { field: 'transactionValue', headerName: 'Transaction Values', width: 200 },
       { field: 'tokens', headerName: 'Tokens', width: 750 },
       {field: 'protocols', headerName: 'Protocols',width: 250}
     ];

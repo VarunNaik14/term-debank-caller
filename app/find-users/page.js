@@ -6,15 +6,6 @@ import { queryArkham } from '../../helpers/apiCaller';
 import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_token_list';
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
 
-/*  method: "get",
-  url: "https://api.arkhamintelligence.com/transfers",
-  params: {
-    base: "aave,compound,notional-finance,morpho,venus",
-    flow: "in",
-    limit: "9999",
-    usdGte:"1000000",
-    timeLast:"90d",*/
-
 export default function Page(){
 
     const protocolSelect = ['aave','compound','notional-finance','morpho','venus','uniswap'];
@@ -126,7 +117,7 @@ export default function Page(){
                     const tokensToFilter = tokens.length == 0 ? undefined: tokens.map(token => token.id).toString();
                     const convertedRecencyToString = recency + "d";
 
-                    //filteredArkhamData is a mapping of address to tokens and tx value
+                    //filteredArkhamData is a mapping of address to tokens, protocols, and tx value
                     let filteredArkhamData = {};
                     queryArkham(protocolsToFilter,flow,transactionvalue,convertedRecencyToString,tokensToFilter).then(
                         (transactionData) => {
@@ -146,6 +137,7 @@ export default function Page(){
 
                                     }
 
+                                    //check to see if the address already exists in mapping, if it does then it appends the new data
                                     filteredArkhamData.hasOwnProperty(address)?
                                         filteredArkhamData[address] = {...filteredArkhamData[address],
                                                                         txValue:filteredArkhamData[address].txValue + transaction.historicalUSD,
