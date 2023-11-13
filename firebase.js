@@ -26,17 +26,23 @@ export async function getUserWithAddress(address,unix){
 
 export async function getSearchParams(unix){
 
+  const searchRef = collection(db,'runs',...[unix,'search']);
+  const q = query(searchRef,where('filled','==',true),limit(1));
+
+  const searchDocs = await getDocs(q);
+
+  return searchDocs.docs[0].data();
+
+
+
+}
+
+export async function getUnixes(){
   const datesRef = collection(db,'dates');
   const q = query(datesRef,where('filled','==',true),limit(1));
   const dateDocs = await getDocs(q);
 
   return dateDocs.docs[0].data().unixes;
-
-}
-
-export async function getUnixes(){
-  const searchRef = collection(db,'runs',...[unix,'search']);
-  const q = query(searchRef,where('filled','==',true),limit(1));
 }
 
 export async function filterUsersBySearchParams(searchParams,unix){
