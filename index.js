@@ -1,9 +1,9 @@
 import {getPortfolioFromAddress} from './helpers/apiCaller.js';
 import {db} from './firebase.js';
-import {doc,setDoc} from "firebase/firestore"; 
+import {arrayUnion, doc,setDoc,updateDoc} from "firebase/firestore"; 
 
 const propagateFirestore = async function(addressArray){
-
+    const unix = Date.now().toString()
     const usersArray = addressArray;
 
     const addTokenToList = function(listToAdd,tokenObj,protocolName){
@@ -47,7 +47,7 @@ const propagateFirestore = async function(addressArray){
         let totalSuppliedValue = 0, totalBorrowedValue = 0,totalCollateralValue = 0, totalRewardValue = 0;
         let protocolsUsedByUser = [];
 
-        const userDocRef = doc(db,'users',userAddress);
+        const userDocRef = doc(db,'runs',...[unix,'users',userAddress]);
         
         let userPortfolio = await getPortfolioFromAddress(userAddress);
         
@@ -174,7 +174,7 @@ const propagateFirestore = async function(addressArray){
                 }
             }
             
-            await setDoc(doc(db,'users',...[userAddress,'protocols',protocolName]),{
+            setDoc(doc(db,'runs',...[unix,'users',userAddress,'protocols',protocolName]),{
                 supply_token_list: protocolSupplyTokens, 
                 borrow_token_list: protocolBorrowTokens,
                 reward_token_list: protocolRewardTokens,
@@ -204,7 +204,7 @@ const propagateFirestore = async function(addressArray){
         );
     } 
       
-    await setDoc(doc(db,'search',...['search_values']),
+    await setDoc(doc(db,'runs',...[unix,'search','search_values']),
     {
         filled: true,
         all_supplied_tokens: allSuppliedTokens,
@@ -212,8 +212,10 @@ const propagateFirestore = async function(addressArray){
         all_protocols_used: allProtocolsUsed,
         all_reward_tokens: allRewardTokens
     }) 
+
+    updateDoc(doc(db,'dates',...['runDates']),{unixes: arrayUnion(unix)});
 }
 
 
 
-propagateFirestore();
+propagateFirestore(['0x741aa7cfb2c7bf2a1e7d4da2e3df6a56ca4131f3']);

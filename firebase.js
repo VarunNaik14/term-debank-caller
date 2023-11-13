@@ -15,29 +15,34 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export {app,db} 
 
-export async function getUserWithAddress(address){
+export async function getUserWithAddress(address,unix){
 
-  const userRef = collection(db,'users');
+  const userRef = collection(db,'runs',...[,unix,'users']);
   const q =  query(userRef, where('address','==',address),limit(1));
   const userDocs = await getDocs(q);
 
   return  userDocs.docs[0].data();
 }
 
-export async function getSearchParams(){
+export async function getSearchParams(unix){
 
-  const searchRef = collection(db,'search');
-  const q = query(searchRef,where('filled','==',true),limit(1));
-  const searchDocs = await getDocs(q);
+  const datesRef = collection(db,'dates');
+  const q = query(datesRef,where('filled','==',true),limit(1));
+  const dateDocs = await getDocs(q);
 
-  return searchDocs.docs[0].data();
+  return dateDocs.docs[0].data().unixes;
 
 }
 
-export async function filterUsersBySearchParams(searchParams){
+export async function getUnixes(){
+  const searchRef = collection(db,'runs',...[unix,'search']);
+  const q = query(searchRef,where('filled','==',true),limit(1));
+}
+
+export async function filterUsersBySearchParams(searchParams,unix){
 
   const map = ['protocols_used','total_supplied_tokens','total_borrowed_tokens'];
-  const userRef = collection(db,'users');
+  const userRef = collection(db,'runs',...[unix,'users']);
   let q = query(userRef);
   let filteredusers = [];
 
