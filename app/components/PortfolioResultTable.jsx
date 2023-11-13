@@ -47,6 +47,7 @@ const PortfolioResultTable = function({tableData}){
         index++;
         }
 
+        //creates rows for the table
         let rows = [];
         for(const user of userData){
 
