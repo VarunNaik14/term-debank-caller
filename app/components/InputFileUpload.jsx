@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import { Container } from "@mui/material";
 import { useState } from "react";
 import { propagateFirestore } from "../..";
-
+import CheckIcon from '@mui/icons-material/Check';
 const InputFileUpload = function() {
 
   const [addressArray, setAddressArray] = useState([]);
@@ -18,7 +18,7 @@ const InputFileUpload = function() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 1 }}>
+    <div class ="flex flex-row">
       <Stack direction="row" alignItems="center" spacing={2}>
         <label htmlFor="upload-file">
           <Button variant="contained" component="span">
@@ -32,16 +32,17 @@ const InputFileUpload = function() {
             onChange={handleFileUpload}
           />
         </label>
+      {(addressArray.length >0) && <div>Upload Complete<CheckIcon color="green"/></div>}    
       </Stack>
       <Button
         variant= "contained"
         onClick={()=>{
           if(confirm(`Are you sure you want to create a dataset of the portfolios of ${addressArray.length} addresses?`) == true)
-          propagateFirestore(addressArray);
+            propagateFirestore(addressArray).then(() => {setAddressArray([])});
         }}>
-        Run Debank 
+        Create Dataset 
       </Button>
-    </Container>
+    </div>
 
     );
 }
