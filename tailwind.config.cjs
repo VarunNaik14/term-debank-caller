@@ -5,6 +5,9 @@ export default {
   "./pages/**/*.{js,ts,jsx,tsx,mdx}",
   "./components/**/*.{js,ts,jsx,tsx,mdx}",],
   theme: {
+    container: {
+
+    },
     colors: {
       black: '000000',
       lightblue: '0040A5',
