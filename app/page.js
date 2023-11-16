@@ -6,7 +6,7 @@ import Head from 'next/head';
 import {useState,useEffect,useMemo} from 'react';
 import * as React from 'react';
 import {TextField, Autocomplete, Button} from '@mui/material';
-
+import { Navbar } from './components/NavBar';
 
 
 
@@ -43,17 +43,23 @@ export default function Page() {
         <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <div class ="flex flex-row pt-0.5">
-          <Autocomplete 
-            value = {runDate}
-            onChange={(event, newValue) =>{
-              setRunDate(newValue);
-            }}
-            id = "unix-value"
-            options = {dateValues}
-            renderInput={(params) => <TextField {...params} label="Select Dataset" />}
-          />
+        <div>
+          <Navbar />
+        </div>
+        Select a dataset
+        <div class ="flex flex-row pt-0.25">
 
+          <div class ="basis-1/2">
+            <Autocomplete 
+              value = {runDate}
+              onChange={(event, newValue) =>{
+                setRunDate(newValue);
+              }}
+              id = "unix-value"
+              options = {dateValues}
+              renderInput={(params) => <TextField {...params} label="Select Dataset" />}
+            />
+          </div>
           <Button 
             variant='outlined'
             onClick={() =>{
@@ -68,7 +74,12 @@ export default function Page() {
               Submit
           </Button>
         </div>
-     
+
+        <div>
+          Or Upload a .csv file of addresses to create a new dataset
+          <InputFileUpload />
+        </div>
+
         {(autoFillValues[0][0] != "loading...")&& <div class = "flex flex-row pt-10">
           <div class = "mx-0.5">
             
@@ -146,7 +157,7 @@ export default function Page() {
             <Button 
               variant="outlined" 
               onClick={() => {
-              
+                const unix = dateToUnix[runDate];
                 filterUsersBySearchParams(searchValues,unix).then((filteredusers) =>{
                   setTableData([filteredusers,searchValues]);
                 })
@@ -156,10 +167,6 @@ export default function Page() {
             </Button>
           </div>
         </div>}
-
-        <div>
-          <InputFileUpload />
-        </div>
         <PortfolioResultTable {...{tableData}}/>
       </div>
     )
