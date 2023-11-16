@@ -2,12 +2,6 @@ import * as React from 'react';
 import { DataGrid,GridToolbar } from '@mui/x-data-grid';
 import { formatter } from '../../helpers/formatter';
 
-
-
-
-
-
-
 const PortfolioResultTable = function({tableData}){
     
     const userData = tableData[0];
@@ -17,17 +11,17 @@ const PortfolioResultTable = function({tableData}){
 
         //fixed columns
         let columns = [
-            { field: 'address', headerName: 'Address', minWidth: 170 },
+            { field: 'address', headerName: 'Address', minWidth: 350 },
             {
               field: 'total_supplied_value',
               headerName: 'Size Lender (All Protocols)',
-              minWidth: 170,
+              minWidth: 220,
               format: (value) => formatter.format(value),
             },
             {
               field: 'total_borrowed_value',
               headerName: 'Size Borrower (All Protocols)',
-              minWidth: 170,
+              minWidth: 220,
               format: (value) => formatter.format(value),
             },
           ];
@@ -39,10 +33,10 @@ const PortfolioResultTable = function({tableData}){
                 columns.push({field: parameters.toString(),headerName:'Protocol(s)',minWidth:170})
             }
             else if(index == 1 && parameters.length != 0){
-                columns.push({field: parameters.toString(),headerName:'Supply Token',minWidth:170})
+                columns.push({field: parameters.toString(),headerName:'Supply Token',minWidth:350})
             }
             else if(index == 2 && parameters.length != 0){
-                columns.push({field: parameters.toString(),headerName:'Borrow Token',minWidth:170})
+                columns.push({field: parameters.toString(),headerName:'Borrow Token',minWidth:350})
             }
         index++;
         }
