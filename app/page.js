@@ -3,8 +3,10 @@ import { PortfolioResultTable } from './components/PortfolioResultTable';
 import { InputFileUpload } from './components/InputFileUpload';
 import { filterUsersBySearchParams, getSearchParams, getUnixes } from "../firebase";
 import Head from 'next/head';
-import {useState,useEffect,useMemo} from 'react';
-import {TextField, Autocomplete, Button} from '@mui/material';
+import {useState,useEffect} from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { Navbar } from './components/NavBar';
 
 
@@ -13,7 +15,18 @@ import { Navbar } from './components/NavBar';
 
 export default function Page() {
 
-  
+  console.log(`PortfolioResultTable ${PortfolioResultTable}`);
+  console.log(`InputFileUpload ${InputFileUpload}`);
+  console.log(`filterUsersBySearchParams ${filterUsersBySearchParams}`);
+  console.log(`Head ${Head}`);
+  console.log(`useState ${useState}`);
+  console.log(`useEffect ${useEffect}`);
+  console.log(`TextField ${TextField}`);
+  console.log(`Autocomplete ${Autocomplete}`);
+  console.log(`Button ${Button}`);
+  console.log(`Navbar ${Navbar}`);
+  console.log(`getSearchParams ${getSearchParams}`);
+  console.log(`getUnixes ${getUnixes}`);
   //protocol,supply,borrow values respectivley
   const [autoFillValues,setAutoFillValues] = useState([['loading...'],['loading...'],['loading...']]);
   const[searchValues,setSearchValues] = useState([[],[],[]]);

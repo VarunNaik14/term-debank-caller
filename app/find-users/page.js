@@ -1,6 +1,8 @@
 'use client'
 import { useState,useEffect } from 'react';
-import {Button,TextField, Autocomplete} from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { queryArkham } from '../../helpers/apiCaller';
 import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_token_list';
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
