@@ -7,9 +7,9 @@ import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_toke
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
 import { Navbar } from '../components/NavBar';
 
-export default function Page(){
+const Page = function(){
 
-    const protocolSelect = ['aave','compound','notional-finance','morpho','venus','uniswap'];
+    const protocolSelect = ['aave','compound','notional-finance','morpho','venus','uniswap','curve-fi','makerdao','1inch','convex-finance','frax-finance'];
     const flowSelect = ['in','out'];
     const [tokenSelect,setTokenSelect] = useState(Coin_Gecko_Token_List);
 
@@ -42,55 +42,6 @@ export default function Page(){
                     />
                     )}
                 />
-                
-                <Autocomplete
-                    value = {flow}
-                    onChange = {(event,newValue) => {
-                        setFlow(newValue);
-                    }}
-                    id="select-flow"
-                    options={flowSelect}
-                    renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant="standard"
-                        label="Flow"
-                        placeholder="Flow"
-                    />
-                    )}
-                />
-
-                <TextField
-                    id="set-transaction-value"
-                    label="Transaction Value (in USD)"
-                    type="number"
-                    value = {transactionvalue}
-                    onChange = {(event)=>{
-                        setTransactionValue(event.target.value/1);
-                        
-                        
-                    }}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="filled"
-                />
-
-                <TextField
-                    id="set-recency"
-                    label="Recency (in days)"
-                    type="number"
-                    value = {recency}
-                    onChange = {(event)=> {
-                        setRecency(event.target.value);
-                        
-                        
-                    }}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="filled"
-                />  
 
                 <Autocomplete
                     value = {tokens}
@@ -109,10 +60,65 @@ export default function Page(){
                         placeholder="Tokens"
                     />
                     )}
-                /> 
+                />    
+
+                <div class ="flex flex-row">
+                    <div class = "">
+                        <Autocomplete
+                            value = {flow}
+                            onChange = {(event,newValue) => {
+                                setFlow(newValue);
+                            }}
+                            id="select-flow"
+                            options={flowSelect}
+                            renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                variant="filled"
+                                label="Flow"
+                                placeholder="Flow"
+                            />
+                            )}
+                        />
+                    </div>
+                    <div class ="">
+                        <TextField
+                            id="set-transaction-value"
+                            label="Transaction Value (in USD)"
+                            type="number"
+                            value = {transactionvalue}
+                            onChange = {(event)=>{
+                                setTransactionValue(event.target.value/1);
+                                
+                                
+                            }}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant="filled"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="set-recency"
+                            label="Recency (in days)"
+                            type="number"
+                            value = {recency}
+                            onChange = {(event)=> {
+                                setRecency(event.target.value);
+                                
+                                
+                            }}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant="filled"
+                        />  
+                    </div>
+                </div>
 
                 <Button 
-                variant="outlined" 
+                variant="contained" 
                 onClick={() => {
                     //converts inputed user filters to arkham api format
                     const protocolsToFilter = protocols.toString();
@@ -139,19 +145,19 @@ export default function Page(){
 
                                     }
 
-                                    //check to see if the address already exists in mapping, if it does then it appends the new data
+                                    //check if the address already exists in mapping, if it does then it appends the new data
                                     filteredArkhamData.hasOwnProperty(address)?
                                         filteredArkhamData[address] = {...filteredArkhamData[address],
-                                                                        txValue:filteredArkhamData[address].txValue + transaction.historicalUSD,
-                                                                        transactedTokens : filteredArkhamData[address].transactedTokens.includes(transaction.tokenName)?
-                                                                        filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName],
-                                                                        protocolsUsed : filteredArkhamData[address].protocolsUsed.includes(protocolName)?
-                                                                        filteredArkhamData[address].protocolsUsed : [...filteredArkhamData[address].protocolsUsed,protocolName] }:
+                                            txValue:filteredArkhamData[address].txValue + transaction.historicalUSD,
+                                            transactedTokens : filteredArkhamData[address].transactedTokens.includes(transaction.tokenName)?
+                                            filteredArkhamData[address].transactedTokens : [...filteredArkhamData[address].transactedTokens,transaction.tokenName],
+                                            protocolsUsed : filteredArkhamData[address].protocolsUsed.includes(protocolName)?
+                                            filteredArkhamData[address].protocolsUsed : [...filteredArkhamData[address].protocolsUsed,protocolName] }:
 
                                         filteredArkhamData[address] = { address: address,
-                                                                        txValue:transaction.historicalUSD,
-                                                                        transactedTokens: [transaction.tokenName],
-                                                                        protocolsUsed: [protocolName] };
+                                            txValue:transaction.historicalUSD,
+                                            transactedTokens: [transaction.tokenName],
+                                            protocolsUsed: [protocolName] };
                                     
                                 }
                             }
@@ -172,3 +178,4 @@ export default function Page(){
     )
 }
 
+export {Page};
