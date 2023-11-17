@@ -4,7 +4,6 @@ import { InputFileUpload } from './components/InputFileUpload';
 import { filterUsersBySearchParams, getSearchParams, getUnixes } from "../firebase";
 import Head from 'next/head';
 import {useState,useEffect,useMemo} from 'react';
-import * as React from 'react';
 import {TextField, Autocomplete, Button} from '@mui/material';
 import { Navbar } from './components/NavBar';
 
