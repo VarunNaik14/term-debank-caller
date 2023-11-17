@@ -3,11 +3,10 @@ import { useState,useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { queryArkham } from '../../helpers/apiCaller';
-import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_token_list';
-import {ArkhamResultTable} from '../components/ArkhamResultTable';
-import { Navbar } from '../components/NavBar';
-
+import { queryArkham } from '../../../helpers/apiCaller';
+import { Coin_Gecko_Token_List } from '../../../coin_gecko_token_list/coin_gecko_token_list';
+import { ArkhamResultTable } from '../../components/ArkhamResultTable';
+import { Navbar } from '../../components/NavBar';
 export default function Page(){
 
     const protocolSelect = ['aave','compound','notional-finance','morpho','venus','uniswap','curve-fi','makerdao','1inch','convex-finance','frax-finance'];
