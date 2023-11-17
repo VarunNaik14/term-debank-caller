@@ -7,7 +7,7 @@ import {Coin_Gecko_Token_List} from '../../coin_gecko_token_list/coin_gecko_toke
 import {ArkhamResultTable} from '../components/ArkhamResultTable';
 import { Navbar } from '../components/NavBar';
 
-const Page = function(){
+export default function Page(){
 
     const protocolSelect = ['aave','compound','notional-finance','morpho','venus','uniswap','curve-fi','makerdao','1inch','convex-finance','frax-finance'];
     const flowSelect = ['in','out'];
@@ -176,6 +176,4 @@ const Page = function(){
 
         
     )
-}
-
-export {Page};
+};
